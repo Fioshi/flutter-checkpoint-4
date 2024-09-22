@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/pages/detail/movie_detail_page.dart';
 import 'package:movie_app/pages/home/widgets/movie_horizontal_item.dart';
 
 class MoviesHorizontalList extends StatelessWidget {
@@ -15,7 +16,22 @@ class MoviesHorizontalList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: movies.length,
         itemBuilder: (context, index) {
-          return MovieHorizontalItem(movie: movies[index]);
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      MovieDetailPage(movieId: movies[index].id),
+                ),
+              );
+            },
+            child: MovieHorizontalItem(
+              movie: movies[index],
+            ),
+          );
+          // return MovieHorizontalItem(
+          //   movie: movies[index]);
         },
       ),
     );

@@ -14,10 +14,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final ApiServices apiServices = ApiServices();
   late Future<List<Movie>> nowPlayingMovies;
+  late Future<List<Movie>> popular;
+  late Future<List<Movie>> upcoming;
 
   @override
   void initState() {
-    nowPlayingMovies = apiServices.getMovies();
+    nowPlayingMovies = apiServices.getMoviesHome("movie/now_playing");
+    popular = apiServices.getMoviesHome("movie/popular");
+    upcoming = apiServices.getMoviesHome('movie/upcoming');
     super.initState();
   }
 
@@ -57,7 +61,9 @@ class _HomePageState extends State<HomePage> {
                       );
                     }
                     if (snapshot.hasData) {
-                      return NowPlayingList(movies: snapshot.data!);
+                      return NowPlayingList(
+                          movies: snapshot.data!,
+                          );
                     }
                     return const Center(
                       child: Text('No data found'),
@@ -78,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               FutureBuilder(
-                  future: nowPlayingMovies,
+                  future: popular,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
@@ -106,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               FutureBuilder(
-                  future: nowPlayingMovies,
+                  future: upcoming,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
