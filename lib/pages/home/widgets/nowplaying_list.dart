@@ -13,7 +13,7 @@ class NowPlayingList extends StatefulWidget {
 
 class _NowPlayingListState extends State<NowPlayingList> {
   final PageController _pageController =
-      PageController(initialPage: 0, viewportFraction: 0.9);
+      PageController(initialPage: 0, viewportFraction: 0.6);
   int currentPage = 0;
 
   @override
@@ -21,7 +21,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
     return Column(
       children: [
         SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: PageView.builder(
               controller: _pageController,
               onPageChanged: (int page) {
@@ -31,10 +31,8 @@ class _NowPlayingListState extends State<NowPlayingList> {
               },
               itemCount: widget.movies.length,
               itemBuilder: (context, index) {
-                return InkWell(
-                  // Adicione o GestureDetector aqui
+                return GestureDetector(
                   onTap: () {
-                    // Navegue para a página de detalhes do filme
                     Navigator.push(
                       context,
                       MaterialPageRoute(
